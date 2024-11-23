@@ -328,22 +328,22 @@ print(f"The binned latitude-longitude combination with the greatest number of ob
 c. 
 ```{python}
 collapsed_df = (
-    merged_df.groupby(['latitude_bin', 'longitude_bin', 'updated_type', 'updated_subtype'])
-    .size()  
-    .reset_index(name='alert_count') 
+    merged_df.groupby(['latitude_bin', 'longitude_bin',
+                      'updated_type', 'updated_subtype'])
+    .size()
+    .reset_index(name='alert_count')
 )
 
-top_10_alerts = (
+top_alerts = (
     collapsed_df.sort_values('alert_count', ascending=False)
-    .head(10)  
 )
 
 output_folder = "top_alerts_map"
 output_path = os.path.join(output_folder, "top_alerts_map.csv")
-top_10_alerts.to_csv(output_path, index=False)
+top_alerts.to_csv(output_path, index=False)
 
 print(f"Data saved to {output_path}")
-print(f"Number of rows in the aggregated DataFrame: {len(top_10_alerts)}")
+print(f"Number of rows in the aggregated DataFrame: {len(top_alerts)}")
 
 ```
 The level of aggregation is latitude-longitude bins, grouped by type and subtype. Each unique combination of binned latitude, longitude, type, and subtype represents one aggregated row.
